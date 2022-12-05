@@ -1,0 +1,313 @@
+﻿@model First_Project.Areas.Student.Models.StudentDetailsViewModel
+@{
+    ViewData["Title"] = "Result Sheet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+
+    <style>
+        .form-control {
+            display: block;
+            width: 100%;
+            height: calc(1.5em + .75rem + 2px);
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #6e707e;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #d1d3e2;
+            border-radius: .35rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        }
+
+
+        .form-group {
+            margin-bottom: 6px !important;
+        }
+    </style>
+}
+<div class="col-12">
+    <div class="card" style="width: 100%;">
+        <div class="card-body mt-2">
+            <div class="row">
+                <div class="col-9">
+                    <h5 class="card-title" style="color: black"> Result Sheet </h5>
+                </div>
+                <div class="col-3">
+                    <a href="#" class="btn btn-info float-right btn-sm">Go to List >> </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <form asp-area="Student" asp-controller="StudentInfo" asp-action="ResultSheet" id="fromInfo" method="post" data-parsley-validate="parsley">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" name="Id " id="resultId " value="0" />
+                <div class="form-group row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Student Name</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="studentId" value="" name="studentId" onchange="StudentDetails()">
+                                    <option value="">Select</option>
+                                    @foreach (var item in Model.studentsInfo)
+                                    {
+                                        <option value="@item.Id">@item?.Name (@item.Roll)</option>
+                                    }
+                                </select>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="type" class="col-sm-4 col-form-label">Section</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="sectionId" value="" name="">
+                                    <option value="">Select</option>
+                                    @foreach (var item in Model.sectionsInfo)
+                                    {
+                                        <option value="@item.Id">@item?.NameEN</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label for="purchaseDate" class="col-sm-4 col-form-label text-left">Role</label>
+                            <div class="col-sm-8 input-group">
+                                <input name="" id="Roll" value="" class="form-control input-group-sm" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="liInfoName" class="col-sm-4 col-form-label text-left">Address</label>
+                            <div class="col-sm-8 input-group">
+                                <input name="" id="Address" class="form-control input-group-sm" value="" readonly/>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="form-group row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="liInfoName" class="col-sm-4 col-form-label text-left">Subject</label>
+                            <div class="col-sm-8 input-group">
+                                <input type="text" name="" id="Subject" class="form-control input-group-sm" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="liInfoName" class="col-sm-4 col-form-label text-left">Total Marks</label>
+                            <div class="col-sm-8 input-group">
+                                <input type="number" name="" id="TotalMarks" class="form-control input-group-sm" value="" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="liInfoName" class="col-sm-4 col-form-label text-left">Grade</label>
+                            <div class="col-sm-8 input-group">
+                                <input type="text" name="" id="Grade" class="form-control input-group-sm" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-12 mt-2">
+                        <button type="button" onclick="AdditemDetails()" value="Add" title="Add" class="btn btn-info" style="float:right;"><i class="fas fa-plus fa-w-1"></i></button>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row">
+                    <div class="col-12">
+                        <table class="table table-bordered table-striped table-sm" id="childTbl" data-parsley-required="true">
+                            <thead>
+                                <tr style="background-color:#E9ECEF">
+                                    <th style="text-align:center">SL No</th>
+                                    <th style="text-align:center">Subject</th>
+                                    <th style="text-align:center">TotalMarks</th>
+                                    <th style="text-align:center">Grade</th>
+                                    <th style="text-align:center">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <br />
+                <button type="button" value="Submit" class="btn btn-info float-right mb-5" id="submit"><i class="fas fa-save"></i></button>
+                <button type="button" class="btn btn-danger float-right mr-2 mb-5"><i class="fas fa-sync"></i></button>
+                <br />
+                <br />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="~/SweetAlert/sweetalert2.common.js"></script>
+    <script src="~/SweetAlert/sweetalert2.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$("#sectionId").attr('display', 'block');
+            $('#sectionId').attr("disabled", true);
+        });
+
+        function StudentDetails() {
+            var id = $("#studentId option:selected").val();
+            if (id != 0) {
+                $.ajax({
+                    url: "/Student/StudentInfo/GetStudentDetails?id=" + id,
+                    type: "get",
+                    success: function (response) {
+                        GetStudentDetails(response);
+                    }
+                });
+            } else {
+                return false;
+            }
+        }
+
+        function GetStudentDetails(res) {
+            if (res != null) {
+                $('#sectionId').val(res.sectionId);
+                $('#Roll').val(res.roll);
+                $('#Address').val(res.address);
+            } else {
+                $('#sectionId').val("");
+                $('#Roll').val("");
+                $('#Address').val("");
+
+            }
+        }
+
+
+        $('#submit').click(function () {
+            var studentId = $('#studentId').val();
+            var rowId = $('.rowId').val();
+            if (studentId == "") {
+                swal({
+                    title: 'Warning', text: 'Please Select Student !!!', type: 'warning'
+                });
+                return false;
+            } else if ($("#childTbl tbody>tr").length == 0) {
+                swal({
+                    title: 'Warning', text: 'Add Result Details !!!', type: 'warning'
+                });
+                return false;
+            }
+
+            var data = $('#fromInfo').serializeArray();
+            swal({
+                title: 'Are you sure?', text: 'Do you want to submit this record!', type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, submit it!'
+            }).then(function () {
+                $.ajax({
+                    url: '/Student/StudentInfo/ResultSheet',
+                    type: 'POST',
+                    data: data
+                }).done(function () {
+                    if (data[0].value == 0) {
+                        swal('success', 'Saved Successfully!', 'success').then(function () {
+                            window.location.replace("/Student/StudentInfo/ResultSheet");
+                        });
+                    }
+                    else {
+                        swal('success', 'Updated Successfully!', 'success').then(function () {
+                            window.location.replace("/Student/StudentInfo/ResultSheet");
+                        });;
+                    }
+                }).fail(function () {
+                    swal('warning', 'Failed!', 'warning');
+                })
+            });
+        });
+
+        function AdditemDetails() {
+            var Subject = $('#Subject').val();
+            var TotalMarks = $('#TotalMarks').val();
+            var Grade = $('#Grade').val();
+            if (Subject == "") {
+                swal({
+                    title: 'Warning', text: 'Please Enter Subject Name.!!!', type: 'warning'
+                });
+                return false;
+            } else if (TotalMarks == "") {
+                swal({
+                    title: 'Warning', text: 'Please Enter Total Marks !!!', type: 'warning'
+                });
+                return false;
+            } else if (Grade == "") {
+                swal({
+                    title: 'Warning', text: 'Please Enter Grade !!!', type: 'warning'
+                });
+                return false;
+            }
+
+            var isExist = false;
+            $('.rowId').each(function (i, obj) {
+                var subject = $(this).val();
+                if (subject == Subject) {
+                    isExist = true;
+                }
+            });
+            if (isExist) {
+                swal('', 'Subject' + ' ' + Subject + ' ' +'is already exist', '');
+                return false;
+            }
+            var RowCount = $("#childTbl tbody>tr").length;
+            var index = RowCount + 1;
+            var row = `<tr id="Id_${index}">
+							<td style="text-align:center"><input type="hidden" value="0" name="childId">${index}</td>
+        					<td style="text-align:center"><input type="hidden" style="text-align:center" class="rowId" value="${Subject}" name="Subject">${Subject}</td>
+                            <td style="text-align:center"><input type="text" class="" style="text-align:center" value="${TotalMarks}" name="TotalMarks"></td>
+    						<td style="text-align:center"><input type="text" class="" style="text-align:center" value="${Grade}" name="Grade"></td>
+							<td style="text-align:center"><a href="javascript:void(0)" onclick="RemoveRow(${index})">X</a></td>
+						</tr>`;
+
+            $('#childTbl tbody').append(row);
+            $('#Subject').val("");
+            $('#TotalMarks').val("");
+            $('#Grade').val("");
+
+        }
+
+        function RemoveRow(sl) {
+            swal({
+                title: 'Are you sure?', text: 'Do you want to remove this record!', type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, submit it!'
+            }).then(function () {
+
+                var id = '#Id_' + sl;
+                $(id).remove();
+            })
+        }
+    </script>
+}

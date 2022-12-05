@@ -1,0 +1,405 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ProedgePundit</title>
+
+    <link rel="stylesheet" href="/css/site.css" />
+
+    <meta name="description" content="">
+    <meta name="author" content="Lets Learning Coding">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="">
+    <meta property="og:site_name" content="LMS">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="GUgKBXQ0TmUUJ93MWMjtkzSyMLsLBs1oTOMvd63d" id="_token">
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+    <!-- END Icons -->
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/Assets/css/slicknav.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Cairo:300,400,600,700" rel="stylesheet"> -->
+    <link rel="stylesheet" id="css-main" href="/Assets/css/dashmix.min.css">
+    <link rel="stylesheet" id="css-main" href="/Assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" id="css-main" href="/Assets/css/style.css">
+    <link rel="stylesheet" id="css-main" href="/Assets/css/spinner.css">
+
+    <style>
+        #page-header nav {
+            background: white;
+            position: static;
+            width: 100%;
+        }
+
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 999999;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .loader-gif {
+            width: 20%;
+            position: relative;
+            top: 30%;
+        }
+
+        /*Parsly  Section*/
+        input.parsley-success,
+        select.parsley-success,
+        textarea.parsley-success {
+            color: #468847;
+            background-color: #DFF0D8;
+            border: 1px solid #D6E9C6;
+        }
+
+        input.parsley-error,
+        select.parsley-error,
+        textarea.parsley-error {
+            color: #B94A48;
+            background-color: #F2DEDE;
+            border: 1px solid #EED3D7;
+        }
+
+        .parsley-errors-list {
+            margin: 2px 0 3px;
+            padding: 0;
+            list-style-type: none;
+            font-size: 0.9em;
+            line-height: 0.9em;
+            opacity: 0;
+            transition: all .3s ease-in;
+            -o-transition: all .3s ease-in;
+            -moz-transition: all .3s ease-in;
+            -webkit-transition: all .3s ease-in;
+        }
+
+            .parsley-errors-list.filled {
+                opacity: 1;
+            }
+
+        .parsley-type, .parsley-required, .parsley-equalto {
+            color: #ff0000;
+        }
+        /*Parsly  Section*/
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous" />
+    <link rel="stylesheet" id="css-main" href="/Assets/css/test.css">
+
+    ;
+</head>
+<body>
+
+    <div class="container">
+        
+
+    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+        Use this space to summarize your privacy and cookie use policy. <a href="/Home/Privacy">Learn More</a>.
+        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string=".AspNet.Consent=yes; expires=Sun, 23 Jan 2022 14:40:18 GMT; path=/; samesite=lax">
+            <span aria-hidden="true">Accept</span>
+        </button>
+    </div>
+    <script>
+        (function () {
+            var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+            button.addEventListener("click", function (event) {
+                document.cookie = button.dataset.cookieString;
+            }, false);
+        })();
+    </script>
+
+        <main role="main" class="pb-3">
+
+        </main>
+    </div>
+
+    <div id="page-container"
+         class="page-header-fixed page-header-light page-header-glass main-content-narrow side-trans-enabled page-header-scroll">
+
+        <header id="page-header">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <nav class="navbar navbar-light">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <img src="/images/logo.png" height="55" class="img-responsive" alt="Proedgex">
+                        </a>
+
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+
+                            <img src="/images/menubar.png" height="30" class="img-responsive" alt="Proedgex">
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="  nav navbar-nav navbar-right ">
+                            <li class="active"><a href="/Home/Index">Home</a></li>
+                            <li class="dropdown sub-menu">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">About us</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#about-us">Pro-edge Pundit Learning</a></li>
+                                    <li><a href="https://proedge-asso.com/our-people/">Pro-edge People</a></li>
+                                    <li><a href="https://proedge-asso.com/proedgejobs/">Pro-edge Career</a></li>
+                                    <li class="nav-item"><a href="/Admin/Service/Contact">Contact Us</a></li>
+                                    <li class="nav-item"><a href="https://proedge-asso.com/our-profile/">About Us</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Course/Course/AllCourseDetailsView">
+                                    Courses
+                                </a>
+                            </li>
+                            <li class="dropdown sub-menu">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Admin/Service/CorporateLearner">Corporate Learner</a></li>
+                                    <li><a href="/Admin/Service/Learner">Learner</a></li>
+                                    <li><a href="/Admin/Service/Educator">Educator</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a href="/Event/EventDetails/Index">Events</a></li>
+                            <li class="nav-item"><a href="/Blog/BlogInfo/BlogDetails">Blog</a></li>
+
+                                <li>
+                                    <a href="/Auth/Account/Login">
+                                        <span style="margin-top:-10px!important;"
+                                              class="btn btn-outline-primary btn-brand-outline nav-item">Sign In</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Auth/Account/Register">
+                                        <span style="margin-top:-10px!important;color:white;"
+                                              class="btn btn-primary btn-brand register-btn nav-item">Sign up</span>
+                                    </a>
+                                </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- END Header -->
+        <!-- Main Container -->
+        <main id="main-container">
+            
+
+<!-- Page Content -->
+<div class="bg-image">
+    <div class="row no-gutters bg-brand-op">
+        <!-- Main Section -->
+        <div class="hero-static col-md-6 d-flex align-items-center bg-white">
+            <div class="p-3 w-100">
+                <!-- Header -->
+                <div class="mb-3 text-center">
+                    <!--                                    <a class="link-fx font-w700 font-size-h1"  href="https://proedgepundit.com">
+                        <img src="/media/images/logo.png" alt="Proedgex" class="w-25 mb-3">
+                    </a>-->
+
+                    <br><br>
+                    <p class="text-uppercase font-w700 font-size-lg text-muted"
+                       style="font-size: 40px !important;">Sign Up</p>
+                </div>
+                <!-- END Header -->
+                <!-- Sign In Form -->
+                <div class="row no-gutters justify-content-center">
+                    <div class="col-sm-8 col-xl-6">
+                        <form method="post" enctype="multipart/form-data" data-parsley-validate="parsley" action="/Auth/Account/Register">
+                            <input type="hidden" name="_token"
+                                   value="GUgKBXQ0TmUUJ93MWMjtkzSyMLsLBs1oTOMvd63d">
+                            <div class="py-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input type="text"
+                                                   class="form-control form-control-lg form-control-alt"
+                                                   id="first-name" value="" name="first_name"
+                                                   placeholder="First Name" required>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text"
+                                                   class="form-control form-control-lg form-control-alt"
+                                                   id="last-name" value="" name="last_name"
+                                                   placeholder="Last Name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email"
+                                           class="form-control form-control-lg form-control-alt"
+                                           id="signup-email" name="email" value="" placeholder="Email"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-lg form-control-alt"
+                                           id="phone" name="phone" placeholder="Phone No (11 digit)" value=""
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password"
+                                           class="form-control form-control-lg form-control-alt" id="password"
+                                           name="password" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox custom-control-primary">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="signup-terms" name="signup_terms" required value="1">
+                                        <label class="custom-control-label" for="signup-terms">
+                                            I agree to
+                                            Terms &amp; Conditions
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit"
+                                        class="btn btn-block btn-hero-lg btn-hero-primary btn-brand-auth">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Sign Up
+                                </button>
+                                <p class="mt-3 mb-0 d-lg-flex justify-content-lg-between">
+                                    <a class="btn btn-sm btn-light d-block d-lg-inline-block mb-1"
+                                       href="/Auth/Account/Login">
+                                        <i class="fa fa-sign-in-alt text-muted mr-1"></i> Sign In
+                                    </a>
+                                    <a class="btn btn-sm btn-light d-block d-lg-inline-block mb-1"
+                                       data-toggle="modal" data-target="#modal-terms">
+                                        <i class="fa fa-book text-muted mr-1"></i> Read Terms
+                                    </a>
+                                </p>
+                            </div>
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Lhvxr1u3YRPgblq03ZQPLyCgszCVuuo3_MoStqBam--HfYuMydO9jTjwhe_xAVoyPAgLIOQFoFQNlBMDJGWaCIuIrpzpbqLtE3qcqoD2DtU7noZ9mq7TCpkcVbq2LI3GjgzKNbUThhZfsptfu0EOx8" /></form>
+                    </div>
+                </div>
+                <!-- END Sign In Form -->
+            </div>
+        </div>
+        <!-- END Main Section -->
+        <!-- Meta Info Section -->
+        <div class="hero-static col-md-6 d-none d-md-flex align-items-md-center justify-content-md-center text-md-center">
+            <img src="/images/sign-in.jpg" class="img-responsive" style="height:620px;width:100%" />
+        </div>
+        <!-- END Meta Info Section -->
+    </div>
+</div>
+<!-- END Page Content -->
+        </main>
+
+
+        <footer id="page-footer" class="bg-white">
+            <div class="content py-0">
+                <div class="row font-size-sm">
+                    <div class="col-sm-3 text-sm-left">
+                        <a class="font-w600" href="#">Pro-edge Pundit</a> &copy; <span data-toggle="year-copy">2020</span>
+                    </div>
+                    <div class="col-sm-9  text-sm-right">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="#" target="_blank"> <i class="fab fa-2x fa-facebook-square"></i> Facebook</a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="#" target=" _blank"> <i class="fab fa-2x fa-linkedin"></i> LinkedIn </a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="#"> <i class="fa fa-envelope fa-2x"></i> &nbsp;ask@proedgepundit.com </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END Footer -->
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <form asp- method="post" id="logoutForm" class="navbar-right" action="/Auth/Account/Logout">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button type="submit" onclick="ClearLocalStorage()" class="btn btn-danger">Logout</button>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Lhvxr1u3YRPgblq03ZQPLyCgszCVuuo3_MoStqBam--HfYuMydO9jTjwhe_xAVoyPAgLIOQFoFQNlBMDJGWaCIuIrpzpbqLtE3qcqoD2DtU7noZ9mq7TCpkcVbq2LI3GjgzKNbUThhZfsptfu0EOx8" /></form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Assets/js/dashmix.core.min.js"></script>
+    <script src="/Assets/js/dashmix.app.min.js"></script>
+    <script src="/Assets/js/jquery.waypoints.min.js"></script>
+    <script src="/Assets/js/jquery.counterup.min.js"></script>
+    <script src="/Assets/js/jquery.slicknav.min.js"></script>
+    <script src="/Assets/js/sweetalert2.min.js"></script>
+    <!-- parsly Validation -->
+    <script src="/js/parsly.js"></script>
+    <link href="/summernote/summernote-bs4.css" rel="stylesheet" />
+    <script src="/summernote/summernote-bs4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.ckeditor').summernote('code', '');
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+            $('.loader').fadeOut();
+        });
+
+        $('.couterUp').counterUp();
+
+        $('.mobile-menu').slicknav({
+            prependTo: '.navbar-header',
+            parentTag: 'liner',
+            allowParentLinks: true,
+            duplicate: true,
+            label: '',
+            closedSymbol: '<i class="fa fa-angle-right"></i>',
+            openedSymbol: '<i class="fa fa-angle-down"></i>',
+        });
+
+        jQuery('#modal-id').modal('toggle');
+
+        function ClearLocalStorage() {
+            window.localStorage.clear();
+        }
+
+    </script>
+
+
+
+
+    
+</body>
+</html>

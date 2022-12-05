@@ -1,0 +1,58 @@
+.navbar-brand img {
+  height: 55px;
+}
+
+.bg-brand {
+  background: #ff6633 !important;
+}
+
+.btn-orange {
+  background: #ff6633 !important;
+  color: #fff !important;
+  border: 0;
+}
+
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #ff6633;
+  border-color: #ff6633;
+}
+
+.admin-logo img {
+  width: 100% !important;
+  height: 90px;
+}
+
+.btn-brand-outline {
+  border: solid 1px #ff6633;
+}
+
+.btn-brand-outline:hover,
+.btn-brand,
+.btn-brand-auth {
+     background: #EE8A34;
+  
+  /*background: #ff6633; */
+  border: solid 1px #ff6633;
+}
+
+.btn-brand-auth:hover {
+  background: transparent;
+  border: solid 1px #ff6633;
+  color: #ff6633;
+}
+
+.btn-brand:hover {
+  background: transparent;
+  border: solid 1px #ff6633;
+}
+
+.bg-brand-op {
+ 
+}
+
+.register-btn a:hover {
+  color: #adb5bd !important;
+}
+
+

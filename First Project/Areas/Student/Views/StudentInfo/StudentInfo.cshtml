@@ -1,0 +1,165 @@
+﻿@model First_Project.Areas.Student.Models.StudentDetailsViewModel
+
+@{
+    ViewData["Title"] = "Student Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-control {
+        display: block;
+        width: 100%;
+        height: calc(1.5em + .75rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6e707e;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d1d3e2;
+        border-radius: .35rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    }
+
+
+    .form-group {
+        margin-bottom: 6px !important;
+    }
+</style>
+
+<div class="col-12 container">
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-9">
+                    <h5 class="card-title" style="color: black"> Result Sheet </h5>
+                </div>
+                @*<div class="col-3">
+                        <a href="#" class="btn btn-info float-right btn-sm">Go to List >> </a>
+                    </div>*@
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <form asp-area="Student" asp-controller="Student" asp-action="studentsInfo" id="fromInfo" method="post" data-parsley-validate="parsley">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" name="studentId" id="studentId" value="0" />
+                <div class="form-group row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Student Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="Name" id="Name" value="">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="type" class="col-sm-4 col-form-label">Section</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="sectionId" value="" name="sectionId">
+                                    <option value="">Select</option>
+                                    @foreach (var item in Model.sectionsInfo)
+                                    {
+                                        <option value="@item.Id">@item?.NameEN</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label for="purchaseDate" class="col-sm-4 col-form-label text-left">Roll</label>
+                            <div class="col-sm-8 input-group">
+                                <input name="Roll" id="Roll" value="" class="form-control input-group-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="liInfoName" class="col-sm-4 col-form-label text-left">Address</label>
+                            <div class="col-sm-8 input-group">
+                                <input name="Address" id="Address" class="form-control input-group-sm" value="" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br />
+                <div class="pb-5 mb-5">
+                    <button type="submit" id="submit" value="Submit" class="btn btn-success" style="float:right; margin-top:5px;">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<hr />
+<div class="row clearfix  ml-3" style="width:98%">
+    <div class="col-12 container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table table-striped table-bordered" id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>SL. No</th>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th>Roll</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                    </thead>
+                    <tbody>
+                        @{
+                            var i = 1;
+                            @foreach (var data in Model.studentsInfo)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@data?.Name</td>
+                                    <td>@data?.section?.NameEN</td>
+                                    <td>@data?.Roll</td>
+                                    <td>@data?.Address</td>
+
+                                    <td>
+                                        <a class="btn btn-success" onclick="EditInfo(@data.Id,'@data.Name','@data.sectionId','@data.Roll','@data.Address')">Edit</a>
+                                   
+                                    </td>
+
+                                </tr>
+                                    i++;
+                                }
+                            }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+   
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#studentTable').DataTable();
+        });
+        
+        function EditInfo(Id, Name, sectionId, Roll, Address) {
+            $('#studentId').val(Id);
+            $('#Name').val(Name);
+            $('#sectionId').val(sectionId);
+            $('#Roll').val(Roll);
+            $('#Address').val(Address);
+        }
+
+    </script>
+}
