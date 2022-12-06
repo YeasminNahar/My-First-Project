@@ -41,6 +41,7 @@ namespace First_Project.Areas.Student.Controllers
             return RedirectToAction(nameof(Section));
         }
 
+
         public async Task<IActionResult> StudentInfo()
         {
             StudentDetailsViewModel model = new StudentDetailsViewModel
