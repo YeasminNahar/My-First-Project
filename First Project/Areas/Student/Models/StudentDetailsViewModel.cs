@@ -23,6 +23,7 @@ namespace First_Project.Areas.Student.Models
         public int? studentInfoId { get; set; }
         public int? sectionId { get; set; }
         public int?[] childId { get; set; }
+        public IEnumerable<Resultsheet>resultSheets { get; set; }
 
         public IEnumerable<Data.Section> sectionsInfo { get; set; }
         public IEnumerable<StudentInfo> studentsInfo { get; set; }

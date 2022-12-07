@@ -1,0 +1,188 @@
+﻿@model First_Project.Areas.Student.Models.StudentDetailsViewModel
+@{
+    ViewData["Title"] = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-3">
+    <div class="col-sm-9">
+        <h5 class="card-title" style="color: black; margin-left:3%"> Student Info List </h5>
+    </div>
+    <div class="col-sm-3">
+        <a href="/Student/StudentInfo/StudentInfo" class="btn btn-info btn-sm float-right mr-4"><i class="nav-main-link-icon si si-plus mr-2"></i>Add New</a>
+
+    </div>
+
+</div>
+<div class="row clearfix  ml-3 mt-3" style="width:98%">
+    <div class="col-12 container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table table-striped table-bordered" id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>SL. No</th>
+                            <th>Name</th>
+                            <th>Section</th>
+                            <th>Roll</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                    </thead>
+                    <tbody>
+                        @{
+                            var i = 1;
+                            @foreach (var data in Model.studentsInfo)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@data?.Name</td>
+                                    <td>@data?.section?.NameEN</td>
+                                    <td>@data?.Roll</td>
+                                    <td>@data?.Address</td>
+
+                                    <td>
+                                        @*<a class="btn btn-success" onclick="EditInfo(@data.Id,'@data.Name','@data.sectionId','@data.Roll','@data.Address')">Edit</a>*@
+                                        <a class="btn btn-info" title="View Result" onclick=ViewDetails(@data.Id)><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
+                                    </td>
+
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="resultSheetModel" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:85%;margin-left:10%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-12 mt-1 row">
+                    <div class="col-sm-11">
+                        <h5 style="margin-left:1.5%">Result Sheet</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-window-close float-right"></i></span>
+                            <span id="txtDate"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="card text-light" style="padding:30px!important; width:95%; margin-left:2.5%">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <h5 class="text-secondary" id="studentName"></h5>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <h5 class="text-secondary" id="sectionName"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <h5 class="text-secondary" id="rollNo"></h5>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group row">
+                                <h5 class="text-secondary" id="address"></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <div class="card-body">
+                        <div class="">
+                            <table class="table table-bordered table-responsive-sm" id="resultSheetTable">
+                                <thead>
+                                    <tr>
+                                        <th>SL No.</th>
+                                        <th>Subject</th>
+                                        <th>Total Marks</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody style=" overflow-y: auto;  overflow-x: hidden;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  
+    <script>
+        $(document).ready(function () {
+            $("#studentTable").DataTable();
+        });
+
+
+        function ViewDetails(id) {
+            Common.Ajax('GET', '/Student/StudentInfo/GetStudentDetails?id=' + id, [], 'json', GetStudentDetails);
+            Common.Ajax('GET', '/Student/StudentInfo/GetResultSheet?id=' + id, [], 'json', GetResultSheet);
+        }
+        function GetStudentDetails(res) {
+            if (res != null) {
+
+                var options1 = "";
+                var Name = res.name;
+                options1 += '<h6 class="ml-auto" id="studentName" >Student Name :  ' + Name + ' </h6>'
+                var options2 = "";
+                var section = res.section.nameEN;
+                options2 += '<h6 class="ml-auto" id="sectionName" >Section :  ' + section + ' </h6>'
+                var options3 = "";
+                var Roll = res.roll;
+                options3 += '<h6 class="ml-auto" id="rollNo" >Roll No :  ' + Roll + ' </h6>'
+                var options4 = "";
+                var Address = res.address;
+                options4 += '<h6 class="ml-auto" id="address" >Address :  ' + Address + ' </h6>'
+            }
+            $("#studentName").html(options1);
+            $("#sectionName").html(options2);
+            $("#rollNo").html(options3);
+            $("#address").html(options4);
+        }
+
+        function GetResultSheet(response) {
+            $("#resultSheetTable").DataTable().destroy();
+            var tbl = $("#resultSheetTable");
+            var tbody = tbl.find('tbody');
+            tbody.empty();
+            var trHtml = '';
+            var i = 1;
+
+            $.each(response.resultSheets, function (key, value) {
+                Subject = value.subject == null ? "-" : value.subject;
+                TotalMarks = value.totalMarks == null ? "-" : value.totalMarks;
+                Grade = value.grade == null ? "-" : value.grade;
+                trHtml += `<tr>
+                                      <td>${i}</td>
+                                      <td>${Subject}</td>
+                                      <td>${TotalMarks}</td>
+                                      <td>${Grade}</td>
+                                   < tr >`
+                i++;
+            })
+            tbody.append(trHtml);
+            $('#resultSheetModel').modal('show');
+        }
+
+
+
+    </script>
+}

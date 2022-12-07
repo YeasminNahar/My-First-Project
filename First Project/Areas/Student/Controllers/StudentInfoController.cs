@@ -65,6 +65,14 @@ namespace First_Project.Areas.Student.Controllers
             await studentService.SaveStudent(studentInfo);
             return RedirectToAction("StudentInfo");
         }
+        public async Task<IActionResult>StudentInfoList()
+        {
+            var data = new StudentDetailsViewModel
+            {
+                studentsInfo = await studentService.GetStudent(),
+            };
+            return View(data);
+        }
 
 
         [HttpGet]
@@ -103,7 +111,15 @@ namespace First_Project.Areas.Student.Controllers
         {
             var data = await studentService.GetStudentDetails(id);
             return Json(data);
-        }   
+        }
+        public async Task<JsonResult> GetResultSheet(int id)
+        {
+            var data = new StudentDetailsViewModel
+            {
+                resultSheets = await studentService.GetResultSheet(id),
+            };
+            return Json(data);
+        }
     }
 }
 
