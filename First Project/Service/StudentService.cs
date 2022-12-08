@@ -31,21 +31,21 @@ namespace First_Project.Service
             await _context.SaveChangesAsync();
             return student.Id;
         }
-
         public async Task<IEnumerable<StudentInfo>> GetStudent()
         {
             return await _context.studentsInfo.Include(x => x.section).AsNoTracking().ToListAsync();
+        }
+        public async Task<StudentInfo> GetStudentInfobyId(int id)
+        {
+            return await _context.studentsInfo.Include(x => x.section).Where(x=>x.Id==id).AsNoTracking().FirstOrDefaultAsync();
         }
         public async Task<StudentInfo> GetStudentDetails(int id)
         {
             var data = await _context.studentsInfo.Include(x => x.section).Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
             return data;
         }
-      
-      
-
-
-        public async Task<int> SaveSection(Section section)
+     
+       public async Task<int> SaveSection(Section section)
         {
             if (section.Id != 0)
                 _context.sectionsInfo.Update(section);
@@ -66,7 +66,7 @@ namespace First_Project.Service
                 _context.resultsheetsInfo.Update(result);
             else
                 _context.resultsheetsInfo.Add(result);
-
+            
             await _context.SaveChangesAsync();
             return result.Id;
         }
@@ -87,9 +87,26 @@ namespace First_Project.Service
         //    {
         //        throw ex;
         //    }
-        }
-    }
 
+        public async Task<int> UpdateStudentActiveStatus(int id, int status)
+        {
+            try
+            {
+                var student = _context.studentsInfo.Find(id);
+                student.isActive = status;
+                _context.studentsInfo.Update(student);
+                await _context.SaveChangesAsync();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+    }
+}
 
 
 

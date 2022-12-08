@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using First_Project.Areas.Student.Models;
 using First_Project.Data;
+using First_Project.Helpers;
 using First_Project.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,7 @@ namespace First_Project.Areas.Student.Controllers
             return View(model);
         }
       
+      
         [HttpPost]
         public async Task<IActionResult> Section([FromForm] StudentDetailsViewModel model)
         {
@@ -42,18 +44,30 @@ namespace First_Project.Areas.Student.Controllers
         }
 
 
-        public async Task<IActionResult> StudentInfo()
+        public async Task<IActionResult> StudentInfo(int id)
         {
             StudentDetailsViewModel model = new StudentDetailsViewModel
             {
                 sectionsInfo = await studentService.GetSection(),
                 studentsInfo = await studentService.GetStudent(),
+                studentsInfos = await studentService.GetStudentInfobyId(id),
             };
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> StudentInfo([FromForm] StudentDetailsViewModel model)
         {
+            string imagePath = string.Empty;
+            string fileName = "";
+            if (model.imgUrl != null)
+            {
+                string message = FileSave.SaveImage(out fileName, model.imgUrl);
+            }
+            else
+            {
+                fileName = model.url;
+            }
+
             var studentInfo = new StudentInfo
             {
                 Id=model.studentId,
@@ -61,9 +75,12 @@ namespace First_Project.Areas.Student.Controllers
                 sectionId = model.sectionId,
                 Roll = model.Roll,
                 Address = model.Address,
+                url=fileName,
+                isActive=model.isActive
+               
             };
             await studentService.SaveStudent(studentInfo);
-            return RedirectToAction("StudentInfo");
+            return RedirectToAction("StudentInfoList");
         }
         public async Task<IActionResult>StudentInfoList()
         {
@@ -120,6 +137,14 @@ namespace First_Project.Areas.Student.Controllers
             };
             return Json(data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> StudentInfoActivateStatus(int Id, int status)
+        {
+            var data= await studentService.UpdateStudentActiveStatus(Id, status);
+            return RedirectToAction("StudentInfoList");
+        }
+
     }
 }
 

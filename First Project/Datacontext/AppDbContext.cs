@@ -18,7 +18,7 @@ namespace First_Project.Datacontext
              public DbSet<Resultsheet> resultsheetsInfo { get; set; }
 
     }
-    }
+}
 
 
 

@@ -10,6 +10,7 @@ namespace First_Project.Service.Interface
     {
         Task<int> SaveStudent(StudentInfo student);
         Task<IEnumerable<StudentInfo>> GetStudent();
+        Task<StudentInfo> GetStudentInfobyId(int id);
         Task<IEnumerable<Section>> GetSection();
         Task<int> SaveSection(Section section);
         Task<int> SaveResult(Resultsheet result);
@@ -18,5 +19,6 @@ namespace First_Project.Service.Interface
         //Task<IEnumerable<StudentInfo>> GetAllStudent(int sectionId);
         //Task<StudentInfo> GetStudentEdit(int id);
         //Task<bool> DeletestudentsInfoById(int Id);
+        Task<int> UpdateStudentActiveStatus(int id, int status);
     }
 }

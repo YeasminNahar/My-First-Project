@@ -6,7 +6,7 @@
 
 <div class="row mt-3">
     <div class="col-sm-9">
-        <h5 class="card-title" style="color: black; margin-left:3%"> Student Info List </h5>
+        <h5 class="card-title" style="color: black; margin-left:3%"#ff0000;> Student Info List </h5>
     </div>
     <div class="col-sm-3">
         <a href="/Student/StudentInfo/StudentInfo" class="btn btn-info btn-sm float-right mr-4"><i class="nav-main-link-icon si si-plus mr-2"></i>Add New</a>
@@ -21,31 +21,46 @@
                 <table class="table table-striped table-bordered" id="studentTable">
                     <thead>
                         <tr>
-                            <th>SL. No</th>
+                            <th style="text-align:center">SL. No</th>
+                            <th style="text-align:center">Profile</th>
                             <th>Name</th>
                             <th>Section</th>
                             <th>Roll</th>
                             <th>Address</th>
-                            <th>Action</th>
+                            <th style="text-align:center">Action</th>
                     </thead>
                     <tbody>
                         @{
                             var i = 1;
-                            @foreach (var data in Model.studentsInfo)
+                            @foreach (var data in Model.studentsInfo.OrderByDescending(x=>x.Id))
                             {
-                                <tr>
-                                    <td>@i</td>
-                                    <td>@data?.Name</td>
-                                    <td>@data?.section?.NameEN</td>
-                                    <td>@data?.Roll</td>
-                                    <td>@data?.Address</td>
-
-                                    <td>
-                                        @*<a class="btn btn-success" onclick="EditInfo(@data.Id,'@data.Name','@data.sectionId','@data.Roll','@data.Address')">Edit</a>*@
-                                        <a class="btn btn-info" title="View Result" onclick=ViewDetails(@data.Id)><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
-                                    </td>
-
-                                </tr>
+                        <tr>
+                            <td style="text-align:center">@i</td>
+                            @if (data.url == null || data.url == "")
+                            {
+                                <td style="text-align:center"><img id="" class="img-profile" style="width: 100px;height: 90px; border-radius:4px; " src="~/Profile/cuser.jpg"></td>
+                            }
+                            else
+                            {
+                                <td style="text-align:center"><img id="" class="img-profile" style="width: 100px;height: 90px; border-radius:4px; " src="/@data.url"></td>
+                            }
+                            <td>@data?.Name</td>
+                            <td>@data?.section?.NameEN</td>
+                            <td>@data?.Roll</td>
+                            <td>@data?.Address</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-success" href="/Student/StudentInfo/StudentInfo?id=@data.Id"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" title="View Result" onclick=ViewDetails(@data.Id)><i class="fa fa-eye"></i></a>
+                                @if (data.isActive == 1)
+                                {
+                                    <a class="btn btn-success" title="Active User" onclick="InActive('@data.Id')" href="#"><i class="fa fa-check"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger" title="InActive User" onclick="Active('@data.Id')" href="#"><i class="fa fa-times"></i></a>
+                                }
+                            </td>
+                        </tr>
                                 i++;
                             }
                         }
@@ -130,8 +145,7 @@
         $(document).ready(function () {
             $("#studentTable").DataTable();
         });
-
-
+        
         function ViewDetails(id) {
             Common.Ajax('GET', '/Student/StudentInfo/GetStudentDetails?id=' + id, [], 'json', GetStudentDetails);
             Common.Ajax('GET', '/Student/StudentInfo/GetResultSheet?id=' + id, [], 'json', GetResultSheet);
@@ -182,6 +196,26 @@
             $('#resultSheetModel').modal('show');
         }
 
+        function Active(index) {
+            swal({
+                title: 'Are you sure?', text: 'Do you want to Active this User!', type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, Active it!'
+            }).then(function () {
+                window.location.href = "/Student/StudentInfo/StudentInfoActivateStatus?Id=" + index + "&status=1";
+                swal('', 'Active Successfully!', 'success')
+            });
+            //return false;
+            window.location.reload = true;
+        }
+
+        function InActive(index) {
+            swal({
+                title: 'Are you sure?', text: 'Do you want to In Active this User!', type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, In Active it!'
+            }).then(function () {
+                window.location.href = "/Student/StudentInfo/StudentInfoActivateStatus?Id=" + index + "&status=0";
+                swal('', 'inActive Successfully!', 'success')
+            });
+            window.location.reload = true;
+        }
 
 
     </script>
