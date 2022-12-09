@@ -27,6 +27,7 @@ namespace First_Project.Areas.Student.Models
         public int? sectionId { get; set; }
         public int?[] childId { get; set; }
         public int? isActive { get; set; }
+        public int? gender { get; set; }
         public IEnumerable<Resultsheet>resultSheets { get; set; }
 
         public IEnumerable<Data.Section> sectionsInfo { get; set; }

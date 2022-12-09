@@ -57,7 +57,7 @@
                     <h5 class="card-title" style="color: black;margin-left:1%"> Student Info </h5>
                 </div>
                 <div class="col-3">
-                    <a href="/Student/StudentInfo/StudentInfoList" class="btn btn-info float-right btn-sm">Go to List</a>
+                    <a href="/Student/StudentInfo/StudentInfoList" class="btn btn-info float-right btn-sm"><i class="fa fa-list mr-2"></i>Go to List</a>
                 </div>
             </div>
         </div>
@@ -73,6 +73,17 @@
                             <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Student Name</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="Name" id="Name" value="@Model.studentsInfos?.Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Gender</label>
+                            <div class="col-sm-2 mt-2">
+                                <input type="radio" id="radio1" name="gender" value="1" />
+                                <label for="radio1">Male</label>
+                            </div>
+                            <div class="col-sm-6 mt-2">
+                                <input type="radio" id="radio2" name="gender" value="2" />
+                                <label for="radio2">Female</label>
                             </div>
                         </div>
 
@@ -117,27 +128,27 @@
                             <div class="container">
                                 <label class="cameraButton">
                                     Take a picture
-                                    @if (Model.studentsInfos?.url == null || Model.studentsInfos?.url =="")
+                                    @if (Model.studentsInfos?.url == null || Model.studentsInfos?.url == "")
                                     {
                                         <img class="blah" style="width:170px; height:170px; margin-right:10%;  margin-top:0%; position:relative" onchange="readURL(this);" alt="your image" src="~/Profile/cuser.jpg"><br />
                                     }
                                     else
                                     {
                                         <img class="blah" style="width:170px; height:170px; margin-right:10%;  margin-top:0%; position:relative" onchange="readURL(this);" alt="your image" src="/@Model.studentsInfos?.url"><br />
-                                        <input type="hidden" name="url" value="@Model.studentsInfos?.url"/>
+                                        <input type="hidden" name="url" value="@Model.studentsInfos?.url" />
                                     }
-                                    <input type='file' accept="image/*;capture=camera" style="background-color:aliceblue" id="imgfile"  name="imgUrl" onchange="readURL(this);" title="Photo Upload" />
+                                    <input type='file' accept="image/*;capture=camera" style="background-color:aliceblue" id="imgfile" name="imgUrl" onchange="readURL(this);" title="Photo Upload" />
                                 </label>
                             </div>
                         </div>
 
                     </div>
                 </div>
-
-
-                <br />
-                <div class="pb-5 mb-5">
-                    <button type="submit" id="submit" value="Submit" class="btn btn-success" style="float:right; margin-top:5px;">Save</button>
+                <div class="form-group row">
+                    <div class="col-8"></div>
+                    <div class="col-4">
+                        <button type="submit" id="submit" value="Submit" class="btn btn-success" style="float:left; margin-top:5px; width:50%"><i class="fa fa-save mr-2"></i>Submit Record</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -151,6 +162,7 @@
         $(document).ready(function () {
             $('#sectionId').val(@Model.studentsInfos?.sectionId);
             $('#isActive').val(@Model.studentsInfos?.isActive);
+            $('#radio' + @Model.studentsInfos?.gender).prop('checked', 'checked');
         });
         function readURL(input) {
             if (input.files && input.files[0]) {

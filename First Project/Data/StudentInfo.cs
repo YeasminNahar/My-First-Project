@@ -13,8 +13,7 @@ namespace First_Project.Data
         public Section section { get; set; }
         public int? isActive { get; set; }
         public string url { get; set; }
-        public string Gender { get; set; }
-
+        public int? gender { get; set; }
     }
 }
 

@@ -76,8 +76,8 @@ namespace First_Project.Areas.Student.Controllers
                 Roll = model.Roll,
                 Address = model.Address,
                 url=fileName,
-                isActive=model.isActive
-               
+                isActive=model.isActive,
+                gender=model.gender
             };
             await studentService.SaveStudent(studentInfo);
             return RedirectToAction("StudentInfoList");
