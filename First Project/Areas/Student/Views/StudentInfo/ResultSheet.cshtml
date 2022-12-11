@@ -68,13 +68,7 @@
                         <div class="form-group row">
                             <label for="type" class="col-sm-4 col-form-label">Section</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="sectionId" value="" name="">
-                                    <option value="">Select</option>
-                                    @foreach (var item in Model.sections)
-                                    {
-                                        <option value="@item.Id">@item?.NameEN</option>
-                                    }
-                                </select>
+                                <input name="" id="sectionId" value="" class="form-control input-group-sm" readonly />
                             </div>
                         </div>
                     </div>
@@ -198,7 +192,7 @@
 
         function GetStudentDetails(res) {
             if (res != null) {
-                $('#sectionId').val(res.sectionId);
+                $('#sectionId').val(res.section?.nameEN);
                 $('#Roll').val(res.roll);
                 $('#Address').val(res.address);
             } else {
