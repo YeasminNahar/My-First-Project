@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace First_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221208172753_student_profile_save")]
-    partial class student_profile_save
+    [Migration("20221210194713_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,60 @@ namespace First_Project.Migrations
                 .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("First_Project.Data.ClassInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameBn");
+
+                    b.Property<string>("NameEn");
+
+                    b.Property<DateTime?>("createdAt");
+
+                    b.Property<string>("createdBy")
+                        .HasMaxLength(250);
+
+                    b.Property<int?>("isDelete");
+
+                    b.Property<DateTime?>("updatedAt");
+
+                    b.Property<string>("updatedBy")
+                        .HasMaxLength(250);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("classInfos");
+                });
+
+            modelBuilder.Entity("First_Project.Data.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameBN");
+
+                    b.Property<string>("NameEN");
+
+                    b.Property<DateTime?>("createdAt");
+
+                    b.Property<string>("createdBy")
+                        .HasMaxLength(250);
+
+                    b.Property<int?>("isDelete");
+
+                    b.Property<DateTime?>("updatedAt");
+
+                    b.Property<string>("updatedBy")
+                        .HasMaxLength(250);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("genders");
+                });
 
             modelBuilder.Entity("First_Project.Data.Resultsheet", b =>
                 {
@@ -51,7 +105,7 @@ namespace First_Project.Migrations
 
                     b.HasIndex("studentInfoId");
 
-                    b.ToTable("resultsheetsInfo");
+                    b.ToTable("resultsheets");
                 });
 
             modelBuilder.Entity("First_Project.Data.Section", b =>
@@ -78,7 +132,7 @@ namespace First_Project.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sectionsInfo");
+                    b.ToTable("sections");
                 });
 
             modelBuilder.Entity("First_Project.Data.StudentInfo", b =>
@@ -93,10 +147,14 @@ namespace First_Project.Migrations
 
                     b.Property<string>("Roll");
 
+                    b.Property<int?>("classInfoId");
+
                     b.Property<DateTime?>("createdAt");
 
                     b.Property<string>("createdBy")
                         .HasMaxLength(250);
+
+                    b.Property<int?>("genderId");
 
                     b.Property<int?>("isActive");
 
@@ -113,9 +171,13 @@ namespace First_Project.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("classInfoId");
+
+                    b.HasIndex("genderId");
+
                     b.HasIndex("sectionId");
 
-                    b.ToTable("studentsInfo");
+                    b.ToTable("studentInfos");
                 });
 
             modelBuilder.Entity("First_Project.Data.Resultsheet", b =>
@@ -127,6 +189,14 @@ namespace First_Project.Migrations
 
             modelBuilder.Entity("First_Project.Data.StudentInfo", b =>
                 {
+                    b.HasOne("First_Project.Data.ClassInfo", "classInfo")
+                        .WithMany()
+                        .HasForeignKey("classInfoId");
+
+                    b.HasOne("First_Project.Data.Gender", "gender")
+                        .WithMany()
+                        .HasForeignKey("genderId");
+
                     b.HasOne("First_Project.Data.Section", "section")
                         .WithMany()
                         .HasForeignKey("sectionId");

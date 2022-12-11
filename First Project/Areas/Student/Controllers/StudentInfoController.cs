@@ -23,7 +23,7 @@ namespace First_Project.Areas.Student.Controllers
         {
             StudentDetailsViewModel model = new StudentDetailsViewModel
             {
-                sectionsInfo = await studentService.GetSection(),
+                sections = await studentService.GetSection(),
             };
             return View(model);
         }
@@ -48,8 +48,9 @@ namespace First_Project.Areas.Student.Controllers
         {
             StudentDetailsViewModel model = new StudentDetailsViewModel
             {
-                sectionsInfo = await studentService.GetSection(),
-                studentsInfo = await studentService.GetStudent(),
+                sections = await studentService.GetSection(),
+                studentInfos = await studentService.GetStudent(),
+                classInfos = await studentService.GetAllClasses(),
                 studentsInfos = await studentService.GetStudentInfobyId(id),
             };
             return View(model);
@@ -72,12 +73,13 @@ namespace First_Project.Areas.Student.Controllers
             {
                 Id=model.studentId,
                 Name = model.Name,
+                classInfoId = model.classInfoId,
                 sectionId = model.sectionId,
                 Roll = model.Roll,
                 Address = model.Address,
                 url=fileName,
                 isActive=model.isActive,
-                gender=model.gender
+                genderId=model.genderId
             };
             await studentService.SaveStudent(studentInfo);
             return RedirectToAction("StudentInfoList");
@@ -86,7 +88,7 @@ namespace First_Project.Areas.Student.Controllers
         {
             var data = new StudentDetailsViewModel
             {
-                studentsInfo = await studentService.GetStudent(),
+                studentInfos = await studentService.GetStudent(),
             };
             return View(data);
         }
@@ -97,8 +99,8 @@ namespace First_Project.Areas.Student.Controllers
         {
             StudentDetailsViewModel model = new StudentDetailsViewModel
             {
-                sectionsInfo = await studentService.GetSection(),
-                studentsInfo = await studentService.GetStudent(),
+                sections = await studentService.GetSection(),
+                studentInfos = await studentService.GetStudent(),
             };
             return View(model);
         }
@@ -144,6 +146,54 @@ namespace First_Project.Areas.Student.Controllers
             var data= await studentService.UpdateStudentActiveStatus(Id, status);
             return RedirectToAction("StudentInfoList");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ClassInfo()
+        {
+            var model = new StudentDetailsViewModel
+            {
+                classInfos = await studentService.GetAllClasses(),
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ClassInfo([FromForm] StudentDetailsViewModel model)
+        {
+            var data = new ClassInfo
+            {
+                Id = model.classInfoId,
+                NameBn = model.NameBN,
+                NameEn = model.NameEN,
+            };
+
+            await studentService.SaveClassInfo(data);
+            return RedirectToAction(nameof(ClassInfo));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GenderInfo()
+        {
+            var model = new StudentDetailsViewModel
+            {
+                genders = await studentService.GetAllGenders(),
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GenderInfo([FromForm] StudentDetailsViewModel model)
+        {
+            var data = new Gender
+            {
+                Id = model.classInfoId,
+                NameBN = model.NameBN,
+                NameEN = model.NameEN,
+            };
+
+            await studentService.SaveGenderInfo(data);
+            return RedirectToAction(nameof(GenderInfo));
+        }
+
+
 
     }
 }

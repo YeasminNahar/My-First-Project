@@ -13,9 +13,11 @@ namespace First_Project.Datacontext
             : base(options)
         {
         }
-             public DbSet<StudentInfo> studentsInfo { get; set; }
-             public DbSet<Section> sectionsInfo { get; set; }
-             public DbSet<Resultsheet> resultsheetsInfo { get; set; }
+        public DbSet<StudentInfo> studentInfos { get; set; }
+        public DbSet<Section> sections { get; set; }
+        public DbSet<Resultsheet> resultsheets { get; set; }
+        public DbSet<ClassInfo> classInfos { get; set; }
+        public DbSet<Gender> genders { get; set; }
 
     }
 }

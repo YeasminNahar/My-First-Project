@@ -68,7 +68,6 @@
                 <input type="hidden" name="studentId" id="studentId" value="@Model.studentsInfos?.Id" />
                 <div class="form-group row">
                     <div class="col-6">
-
                         <div class="form-group row">
                             <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Student Name</label>
                             <div class="col-sm-8">
@@ -78,21 +77,34 @@
                         <div class="form-group row">
                             <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Gender</label>
                             <div class="col-sm-2 mt-2">
-                                <input type="radio" id="radio1" name="gender" value="1" />
-                                <label for="radio1">Male</label>
+                                <input type="hidden" id="genderId" name="" value="" />
+                                <input type="radio" id="radio1" name="genderId" value="1" />
+                                <label for="radio1">Boys</label>
                             </div>
                             <div class="col-sm-6 mt-2">
-                                <input type="radio" id="radio2" name="gender" value="2" />
-                                <label for="radio2">Female</label>
+                                <input type="radio" id="radio2" name="genderId" value="2" />
+                                <label for="radio2">Girls</label>
                             </div>
                         </div>
 
                         <div class="form-group row">
+                            <label for="type" class="col-sm-4 col-form-label">Class</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="classInfoId" value="" name="classInfoId" onchange="classChange()">
+                                    <option value="">Select</option>
+                                    @foreach (var item in Model.classInfos)
+                                    {
+                                        <option value="@item.Id">@item?.NameEn</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row sectionId">
                             <label for="type" class="col-sm-4 col-form-label">Section</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="sectionId" value="" name="sectionId">
                                     <option value="">Select</option>
-                                    @foreach (var item in Model.sectionsInfo)
+                                    @foreach (var item in Model.sections)
                                     {
                                         <option value="@item.Id">@item?.NameEN</option>
                                     }
@@ -160,9 +172,17 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
+            $('.sectionId').hide();
+            $('#classInfoId').val(@Model.studentsInfos?.classInfoId);
             $('#sectionId').val(@Model.studentsInfos?.sectionId);
             $('#isActive').val(@Model.studentsInfos?.isActive);
-            $('#radio' + @Model.studentsInfos?.gender).prop('checked', 'checked');
+            $('#genderId').val(@Model.studentsInfos?.gender);
+            var genderId = $('#genderId').val();
+            if (genderId > 0 ? genderId : 0) {
+                $('#radio' + genderId).prop('checked', 'checked');
+            } else {
+            }
+            classChange();
         });
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -172,6 +192,17 @@
                         .attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function classChange() {
+            var classInfoId = $('#classInfoId').val();
+            if (classInfoId == 9 || classInfoId == 10) {
+                $('.sectionId').show();
+                $('#sectionId').val(@Model.studentsInfos?.sectionId);
+            } else {
+                $('.sectionId').hide();
+                $('#sectionId').val("");
             }
         }
 

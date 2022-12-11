@@ -20,5 +20,9 @@ namespace First_Project.Service.Interface
         //Task<StudentInfo> GetStudentEdit(int id);
         //Task<bool> DeletestudentsInfoById(int Id);
         Task<int> UpdateStudentActiveStatus(int id, int status);
+        Task<IEnumerable<ClassInfo>> GetAllClasses();
+        Task<int> SaveClassInfo(ClassInfo classs);
+        Task<IEnumerable<Gender>> GetAllGenders();
+        Task<int> SaveGenderInfo(Gender classs);
     }
 }
