@@ -77,6 +77,7 @@
                         <div class="form-group row">
                             <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Gender</label>
                             <div class="col-sm-2 mt-2">
+                                <input type="hidden" id="genderId" name="" value="" />
                                 <input type="radio" id="radio1" name="genderId" value="1" />
                                 <label for="radio1">Boys</label>
                             </div>
@@ -175,7 +176,13 @@
             $('#classInfoId').val(@Model.studentsInfos?.classInfoId);
             $('#sectionId').val(@Model.studentsInfos?.sectionId);
             $('#isActive').val(@Model.studentsInfos?.isActive);
-            $('#radio' + @Model.studentsInfos?.genderId).prop('checked', 'checked');
+            $('#genderId').val(@Model.studentsInfos?.genderId);
+            var genderId = $('#genderId').val();
+            if (genderId > 0 ? genderId : 0) {
+                $('#radio' + genderId).prop('checked', 'checked');
+            } else {
+            }
+            classChange();
         });
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -187,5 +194,17 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        function classChange() {
+            var classInfoId = $('#classInfoId').val();
+            if (classInfoId == 9 || classInfoId == 10) {
+                $('.sectionId').show();
+                $('#sectionId').val(@Model.studentsInfos?.sectionId);
+            } else {
+                $('.sectionId').hide();
+                $('#sectionId').val("");
+            }
+        }
+
     </script>
 }
