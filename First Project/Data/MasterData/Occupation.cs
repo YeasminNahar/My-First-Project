@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace FADMS.Data.Entity.Master
+namespace First_Project.Data.Master
 {
     public class Occupation:Base
     {

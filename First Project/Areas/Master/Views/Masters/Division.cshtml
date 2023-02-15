@@ -1,0 +1,112 @@
+﻿@model First_Project.Areas.Master.Models.MastersViewModel
+
+@{
+    ViewData["Title"] = "Division Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title ml-5 mt-2" style="color: black">Division Info</h5>
+        <hr>
+        <div class="container">
+            <form asp-area="Master" id="FormId" asp-controller="Masters" asp-action="Division" method="post" data-parsley-validate="parsley">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" name="divisionId" id="divisionId" value="0" />
+                <div class="form-group row">
+                    <label for="countryName" class="col-sm-1 col-form-label"></label>
+                    <label for="countryName" class="col-sm-3 col-form-label float-right">Country Name</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="countryId" id="countryId" required>
+                            <option>Select Country</option>
+                                @foreach (var data in Model.countries)
+                                {
+                                    <option value="@data.Id">@data.countryName</option>
+                                 }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="divisionName" class="col-sm-1 col-form-label"></label>
+                        <label for="divisionName" class="col-sm-3 col-form-label float-right">Division Name (English)</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="divisionName" id="divisionName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="divisionNameBn" class="col-sm-1 col-form-label"></label>
+                        <label for="divisionNameBn" class="col-sm-3 col-form-label float-right">Division Name (Bangla)</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="divisionNameBn" id="divisionNameBn" required>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" id="submit" value="Submit" class="btn btn-success btn-lg" style="float:right;margin-top:5px;"><i class="fa fa-save"></i></button>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <hr />
+    <div class="row clearfix  ml-3 mt-3" style="width:98%">
+        <div class="col-12 container">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table class="table table-striped table-bordered" id="divisionTable">
+                        <thead>
+                            <tr>
+                                <th>SL. No</th>
+                                <th>Country Name </th>
+                                <th>Division Name (English)</th>
+                                <th>Division Name (Bangla)</th>
+                                <th>Action</th>
+                        </thead>
+                        <tbody>
+                            @{
+                                var i = 1;
+                                @foreach (var data in Model.divisions)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@data?.country?.countryName</td>
+                                        <td>@data?.divisionName</td>
+                                        <td>@data?.divisionNameBn</td>
+                                        <td>
+                                            <a class="btn btn-success" onclick="Edit(@data.Id,'@data.countryId','@data?.divisionName','@data?.divisionNameBn')" href="#"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-danger" onclick="Remove(@data.Id)" href="#"><i class="fa fa-trash"></i></a>
+                                        </td>
+
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#divisionTable').DataTable();
+        });
+
+        function Edit(Id, countryId, divisionName, divisionNameBn) {
+            $('#divisionId').val(Id);
+            $('#countryId').val(countryId);
+            $('#divisionName').val(divisionName);
+            $('#divisionNameBn').val(divisionNameBn);
+        }
+    </script>

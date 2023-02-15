@@ -30,6 +30,8 @@
 
 
   <ItemGroup>
+    <Folder Include="Areas\Master\Data\" />
+    <Folder Include="Areas\Master\Models\" />
     <Folder Include="Areas\Student\Data\" />
     <Folder Include="wwwroot\Profile\" />
   </ItemGroup>

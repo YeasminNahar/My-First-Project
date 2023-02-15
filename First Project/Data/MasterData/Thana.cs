@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using First_Project.Data;
 
-namespace FADMS.Data.Entity.Master
+namespace First_Project.Data.Master
 {
     public class Thana : Base
     {

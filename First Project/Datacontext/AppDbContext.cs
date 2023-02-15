@@ -1,4 +1,5 @@
 ﻿using First_Project.Data;
+using First_Project.Data.Master;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace First_Project.Datacontext
         public DbSet<Resultsheet> resultsheets { get; set; }
         public DbSet<ClassInfo> classInfos { get; set; }
         public DbSet<Gender> genders { get; set; }
+        public DbSet<Country> countries { get; set; }
+        public DbSet<Division> divisions { get; set; }
+        public DbSet<District> districts { get; set; }
+        public DbSet<Thana> thanas { get; set; }
+        public DbSet<Occupation> occupations { get; set; }
+        public DbSet<Religion> religions { get; set; }
 
     }
 }

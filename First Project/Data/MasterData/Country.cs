@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FADMS.Data.Entity.Master
+namespace First_Project.Data.Master
 {
     public class Country : Base
     {       
