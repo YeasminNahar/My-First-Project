@@ -18,6 +18,8 @@ namespace First_Project.Areas.Master.Controllers
         {
             this.masterService = _master;
         }
+
+        #region Country
         public async Task<IActionResult> Country()
         {
             MastersViewModel model = new MastersViewModel
@@ -26,7 +28,6 @@ namespace First_Project.Areas.Master.Controllers
             };
             return View(model);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Country([FromForm] MastersViewModel model)
@@ -41,6 +42,10 @@ namespace First_Project.Areas.Master.Controllers
             await masterService.SaveCountry(data);
             return RedirectToAction(nameof(Country));
         }
+
+        #endregion
+
+        #region Division
         [HttpGet]
 
         public async Task<IActionResult> Division()
@@ -69,6 +74,9 @@ namespace First_Project.Areas.Master.Controllers
             return RedirectToAction(nameof(Division));
 
         }
+        #endregion
+
+        #region District
         [HttpGet]
         public async Task<IActionResult> District()
         {
@@ -76,8 +84,8 @@ namespace First_Project.Areas.Master.Controllers
             {
                 divisions = await masterService.GetDivision(),
                 districts = await masterService.GetDistrict(),
-                
-               
+
+
             };
             return View(model);
         }
@@ -96,7 +104,31 @@ namespace First_Project.Areas.Master.Controllers
 
 
         }
+        #endregion
+        #region ClassName
+        [HttpGet]
+        public async Task<IActionResult> ClassName()
+        {
+            MastersViewModel model = new MastersViewModel
+            {
+            };
+            return View(model);
+        }
+
+        #endregion
+
+        #region BookName
+        [HttpGet]
+        public async Task<IActionResult> BookName()
+        {
+            MastersViewModel model = new MastersViewModel
+            {
+            };
+            return View(model);
+        }
+
+        #endregion
 
     }
 
-    }
+}
