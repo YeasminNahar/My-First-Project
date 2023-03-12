@@ -25,6 +25,14 @@ namespace First_Project.Areas.Master.Models
         public string divisionNameBn { get; set; }
         public IEnumerable<Division> divisions { get; set; }
         #endregion
+        #region
+        public int districtId { get; set; }
+        
+        public string districtName { get; set; }
+        public string districtNameBn { get; set; }
+        public IEnumerable<District> districts { get; set; }
+        #endregion
+
 
     }
 }

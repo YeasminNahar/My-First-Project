@@ -18,5 +18,10 @@ namespace First_Project.Service.Interface
         Task<IEnumerable<Division>> GetDivision();
         #endregion
 
+        #region
+        Task<int> SaveDistrict(District district);
+        Task<IEnumerable<District>> GetDistrict();
+        #endregion
+
     }
 }

@@ -41,6 +41,7 @@ namespace First_Project.Areas.Master.Controllers
             await masterService.SaveCountry(data);
             return RedirectToAction(nameof(Country));
         }
+        [HttpGet]
 
         public async Task<IActionResult> Division()
         {
@@ -66,6 +67,36 @@ namespace First_Project.Areas.Master.Controllers
 
             await masterService.SaveDivision(data);
             return RedirectToAction(nameof(Division));
+
         }
+        [HttpGet]
+        public async Task<IActionResult> District()
+        {
+            MastersViewModel model = new MastersViewModel
+            {
+                divisions = await masterService.GetDivision(),
+                districts = await masterService.GetDistrict(),
+                
+               
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> District([FromForm] MastersViewModel model)
+        {
+            var data = new District
+            {
+                Id = model.districtId,
+                divisionId = model.divisionId,
+                districtName = model.districtName,
+                districtNameBn = model.districtNameBn,
+            };
+            await masterService.SaveDistrict(data);
+            return RedirectToAction(nameof(District));
+
+
+        }
+
     }
-}
+
+    }
