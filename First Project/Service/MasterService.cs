@@ -52,22 +52,6 @@ namespace First_Project.Service
             return await _context.divisions.Include(x=>x.country).AsNoTracking().ToListAsync();
         }
         #endregion
-        #region
-        public async Task<int> SaveDistrict(District district)
-        {
-            if (district.Id != 0)
-                _context.districts.Update(district);
-            else
-                _context.districts.Add(district);
-
-            await _context.SaveChangesAsync();
-            return district.Id;
-        }
-        public async Task<IEnumerable<District>> GetDistrict()
-        {
-            return await _context.districts.Include(x => x.division).AsNoTracking().ToListAsync();
-        }
-        #endregion
 
         #region District
         public async Task<int> SaveDistrict(District district)
