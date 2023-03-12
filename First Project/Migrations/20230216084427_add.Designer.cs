@@ -4,14 +4,16 @@ using First_Project.Datacontext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace First_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230216084427_add")]
+    partial class add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,76 +324,6 @@ namespace First_Project.Migrations
                     b.ToTable("thanas");
                 });
 
-            modelBuilder.Entity("First_Project.Data.MasterData.BookName", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BookNameBn")
-                        .HasColumnType("NVARCHAR(120)");
-
-                    b.Property<string>("BookNameEn")
-                        .HasColumnType("NVARCHAR(120)");
-
-                    b.Property<int?>("Order");
-
-                    b.Property<int?>("classId");
-
-                    b.Property<int?>("classNameId");
-
-                    b.Property<DateTime?>("createdAt");
-
-                    b.Property<string>("createdBy")
-                        .HasMaxLength(250);
-
-                    b.Property<int?>("isDelete");
-
-                    b.Property<DateTime?>("updatedAt");
-
-                    b.Property<string>("updatedBy")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("url");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("classNameId");
-
-                    b.ToTable("bookNames");
-                });
-
-            modelBuilder.Entity("First_Project.Data.MasterData.ClassName", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClassNameBn")
-                        .HasColumnType("NVARCHAR(120)");
-
-                    b.Property<string>("ClassNameEn")
-                        .HasColumnType("NVARCHAR(120)");
-
-                    b.Property<int?>("Order");
-
-                    b.Property<DateTime?>("createdAt");
-
-                    b.Property<string>("createdBy")
-                        .HasMaxLength(250);
-
-                    b.Property<int?>("isDelete");
-
-                    b.Property<DateTime?>("updatedAt");
-
-                    b.Property<string>("updatedBy")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("classNames");
-                });
-
             modelBuilder.Entity("First_Project.Data.Resultsheet", b =>
                 {
                     b.Property<int>("Id")
@@ -517,13 +449,6 @@ namespace First_Project.Migrations
                     b.HasOne("First_Project.Data.Master.District", "district")
                         .WithMany()
                         .HasForeignKey("districtId");
-                });
-
-            modelBuilder.Entity("First_Project.Data.MasterData.BookName", b =>
-                {
-                    b.HasOne("First_Project.Data.MasterData.ClassName", "className")
-                        .WithMany()
-                        .HasForeignKey("classNameId");
                 });
 
             modelBuilder.Entity("First_Project.Data.Resultsheet", b =>

@@ -38,6 +38,7 @@ namespace First_Project
             options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IMasterService, MasterService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

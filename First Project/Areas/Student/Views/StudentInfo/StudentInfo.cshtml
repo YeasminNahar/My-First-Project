@@ -22,80 +22,144 @@
         transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     }
 
-
     .form-group {
         margin-bottom: 6px !important;
     }
+
+    label.cameraButton {
+        display: inline-block;
+        /*margin: 1em 0;*/
+        /* Styles to make it look like a button */
+        padding: 0.5em;
+        border: 2px solid #666;
+        border-color: #EEE #CCC #CCC #EEE;
+        background-color: #DDD;
+        width: 35%
+    }
+
+        /* Look like a clicked/depressed button */
+        label.cameraButton:active {
+            border-color: #CCC #EEE #EEE #CCC;
+        }
+
+        /* This is the part that actually hides the 'Choose file' text box for camera inputs */
+        label.cameraButton input[accept*="camera"] {
+            display: none;
+        }
 </style>
 
 <div class="col-12 container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-9">
-                    <h5 class="card-title" style="color: black"> Result Sheet </h5>
+                    <h5 class="card-title" style="color: black;margin-left:1%"> Student Info </h5>
                 </div>
-                @*<div class="col-3">
-                        <a href="#" class="btn btn-info float-right btn-sm">Go to List >> </a>
-                    </div>*@
+                <div class="col-3">
+                    <a href="/Student/StudentInfo/StudentInfoList" class="btn btn-info float-right btn-sm"><i class="fa fa-list mr-2"></i>Go to List</a>
+                </div>
             </div>
         </div>
         <hr>
         <div class="container">
-            <form asp-area="Student" asp-controller="Student" asp-action="studentsInfo" id="fromInfo" method="post" data-parsley-validate="parsley">
+            <form asp-area="Student" asp-controller="Student" asp-action="studentsInfo" id="fromInfo" method="post" data-parsley-validate="parsley" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <input type="hidden" name="studentId" id="studentId" value="0" />
+                <input type="hidden" name="studentId" id="studentId" value="@Model.studentsInfos?.Id" />
                 <div class="form-group row">
                     <div class="col-6">
                         <div class="form-group row">
                             <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Student Name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="Name" id="Name" value="">
+                                <input type="text" class="form-control" name="Name" id="Name" value="@Model.studentsInfos?.Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="salesInvoiceNo" class="col-sm-4 col-form-label">Gender</label>
+                            <div class="col-sm-2 mt-2">
+                                <input type="hidden" id="genderId" name="" value="" />
+                                <input type="radio" id="radio1" name="genderId" value="1" />
+                                <label for="radio1">Boys</label>
+                            </div>
+                            <div class="col-sm-6 mt-2">
+                                <input type="radio" id="radio2" name="genderId" value="2" />
+                                <label for="radio2">Girls</label>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="col-6">
                         <div class="form-group row">
+                            <label for="type" class="col-sm-4 col-form-label">Class</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="classInfoId" value="" name="classInfoId" onchange="classChange()">
+                                    <option value="">Select</option>
+                                    @foreach (var item in Model.classInfos)
+                                    {
+                                        <option value="@item.Id">@item?.NameEn</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row sectionId">
                             <label for="type" class="col-sm-4 col-form-label">Section</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="sectionId" value="" name="sectionId">
                                     <option value="">Select</option>
-                                    @foreach (var item in Model.sectionsInfo)
+                                    @foreach (var item in Model.sections)
                                     {
                                         <option value="@item.Id">@item?.NameEN</option>
                                     }
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6">
                         <div class="form-group row">
                             <label for="purchaseDate" class="col-sm-4 col-form-label text-left">Roll</label>
                             <div class="col-sm-8 input-group">
-                                <input name="Roll" id="Roll" value="" class="form-control input-group-sm" />
+                                <input name="Roll" id="Roll" value="@Model.studentsInfos?.Roll" class="form-control input-group-sm" />
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-6">
                         <div class="form-group row">
                             <label for="liInfoName" class="col-sm-4 col-form-label text-left">Address</label>
                             <div class="col-sm-8 input-group">
-                                <input name="Address" id="Address" class="form-control input-group-sm" value="" />
+                                <input name="Address" id="Address" class="form-control input-group-sm" value="@Model.studentsInfos?.Address" />
 
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="type" class="col-sm-4 col-form-label">Status</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="isActive" value="" name="isActive">
+                                    <option value="1">Active</option>
+                                    <option value="2">inActive</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row text-center">
+                            <div class="container">
+                                <label class="cameraButton">
+                                    Take a picture
+                                    @if (Model.studentsInfos?.url == null || Model.studentsInfos?.url == "")
+                                    {
+                                        <img class="blah" style="width:170px; height:170px; margin-right:10%;  margin-top:0%; position:relative" onchange="readURL(this);" alt="your image" src="~/Profile/cuser.jpg"><br />
+                                    }
+                                    else
+                                    {
+                                        <img class="blah" style="width:170px; height:170px; margin-right:10%;  margin-top:0%; position:relative" onchange="readURL(this);" alt="your image" src="/@Model.studentsInfos?.url"><br />
+                                        <input type="hidden" name="url" value="@Model.studentsInfos?.url" />
+                                    }
+                                    <input type='file' accept="image/*;capture=camera" style="background-color:aliceblue" id="imgfile" name="imgUrl" onchange="readURL(this);" title="Photo Upload" />
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
-
-                <br />
-                <div class="pb-5 mb-5">
-                    <button type="submit" id="submit" value="Submit" class="btn btn-success" style="float:right; margin-top:5px;">Save</button>
+                <div class="form-group row">
+                    <div class="col-8"></div>
+                    <div class="col-4">
+                        <button type="submit" id="submit" value="Submit" class="btn btn-success" style="float:left; margin-top:5px; width:50%"><i class="fa fa-save mr-2"></i>Submit Record</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -103,61 +167,43 @@
     </div>
 </div>
 
-<hr />
-<div class="row clearfix  ml-3" style="width:98%">
-    <div class="col-12 container">
-        <div class="card mb-4">
-            <div class="card-body">
-                <table class="table table-striped table-bordered" id="studentTable">
-                    <thead>
-                        <tr>
-                            <th>SL. No</th>
-                            <th>Name</th>
-                            <th>Section</th>
-                            <th>Roll</th>
-                            <th>Address</th>
-                            <th>Action</th>
-                    </thead>
-                    <tbody>
-                        @{
-                            var i = 1;
-                            @foreach (var data in Model.studentsInfo)
-                            {
-                                <tr>
-                                    <td>@i</td>
-                                    <td>@data?.Name</td>
-                                    <td>@data?.section?.NameEN</td>
-                                    <td>@data?.Roll</td>
-                                    <td>@data?.Address</td>
 
-                                    <td>
-                                        <a class="btn btn-success" onclick="EditInfo(@data.Id,'@data.Name','@data.sectionId','@data.Roll','@data.Address')">Edit</a>
-                                   
-                                    </td>
-
-                                </tr>
-                                    i++;
-                                }
-                            }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    </div>
-   
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('#studentTable').DataTable();
+            $('.sectionId').hide();
+            $('#classInfoId').val(@Model.studentsInfos?.classInfoId);
+            $('#sectionId').val(@Model.studentsInfos?.sectionId);
+            $('#isActive').val(@Model.studentsInfos?.isActive);
+            $('#genderId').val(@Model.studentsInfos?.genderId);
+            var genderId = $('#genderId').val();
+            if (genderId > 0 ? genderId : 0) {
+                $('#radio' + genderId).prop('checked', 'checked');
+            } else {
+            }
+            classChange();
         });
-        
-        function EditInfo(Id, Name, sectionId, Roll, Address) {
-            $('#studentId').val(Id);
-            $('#Name').val(Name);
-            $('#sectionId').val(sectionId);
-            $('#Roll').val(Roll);
-            $('#Address').val(Address);
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.blah')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
+
+        function classChange() {
+            var classInfoId = $('#classInfoId').val();
+            if (classInfoId == 9 || classInfoId == 10) {
+                $('.sectionId').show();
+                $('#sectionId').val(@Model.studentsInfos?.sectionId);
+            } else {
+                $('.sectionId').hide();
+                $('#sectionId').val("");
+            }
+        }
+
     </script>
 }

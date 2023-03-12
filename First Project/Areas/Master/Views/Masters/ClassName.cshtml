@@ -1,33 +1,31 @@
-﻿@model First_Project.Areas.Student.Models.StudentDetailsViewModel
+﻿@model First_Project.Areas.Master.Models.MastersViewModel
 
 @{
-    ViewData["Title"] = "Section Info";
+    ViewData["Title"] = "Class Info";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <div class="card" style="width: 100%;">
     <div class="card-body">
-        <h5 class="card-title ml-5 mt-2" style="color: black">Section Info</h5>
+        <h5 class="card-title ml-5 mt-2" style="color: black">Class Info</h5>
         <hr>
         <div class="container">
-            <form asp-area="Student" id="FormId" asp-controller="StudentInfo" asp-action="Section" method="post" data-parsley-validate="parsley">
+            <form asp-area="Master" id="FormId" asp-controller="Masters" asp-action="ClassName" method="post" data-parsley-validate="parsley">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <input type="hidden" name="sectionsId" id="sectionId" value="0" />
+                <input type="hidden" name="ClassId" id="ClassId" value="0" />
                 <div class="form-group row">
-                    <label for="employeeDesignation" class="col-sm-1 col-form-label"></label>
-                    <label for="employeeDesignation" class="col-sm-3 col-form-label float-right">Section Name (English)</label>
+                    <label for="ClassName" class="col-sm-3 col-form-label float-right">Class Name (English)</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="NameEN" id="NameEN" required>
+                        <input type="text" class="form-control" name="ClassName" id="ClassName" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="employeeDesignation" class="col-sm-1 col-form-label"></label>
-                    <label for="employeeDesignation" class="col-sm-3 col-form-label float-right">Section Name (Bangla)</label>
+                    <label for="ClassNameBn" class="col-sm-3 col-form-label float-right">Class Name (Bangla)</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="NameBN" id="NameBN" required>
+                        <input type="text" class="form-control" name="ClassNameBn" id="ClassNameBn" required>
                     </div>
                 </div>
                 <hr />
@@ -50,25 +48,27 @@
     <div class="col-12 container">
         <div class="card mb-4">
             <div class="card-body">
-                <table class="table table-striped table-bordered" id="sectionTable">
+                <table class="table table-striped table-bordered" id="ClassTable">
                     <thead>
                         <tr>
                             <th>SL. No</th>
-                            <th>Section Name (English)</th>
-                            <th>Section Name (Bangla)</th>
+                            <th>Country Name </th>
+                            <th>Class Name (English)</th>
+                            <th>Class Name (Bangla)</th>
                             <th>Action</th>
                     </thead>
-                    <tbody>
+                    @*<tbody>
                         @{
                             var i = 1;
-                            @foreach (var data in Model.sections)
+                            @foreach (var data in Model.Classs)
                             {
                                 <tr>
                                     <td>@i</td>
-                                    <td>@data?.NameEN</td>
-                                    <td>@data?.NameBN</td>
+                                    <td>@data?.country?.countryName</td>
+                                    <td>@data?.ClassName</td>
+                                    <td>@data?.ClassNameBn</td>
                                     <td>
-                                        <a class="btn btn-success" onclick="Edit(@data.Id,'@data?.NameEN','@data?.NameBN')" href="#"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-success" onclick="Edit(@data.Id,'@data.countryId','@data?.ClassName','@data?.ClassNameBn')" href="#"><i class="fa fa-edit"></i></a>
                                         <a class="btn btn-danger" onclick="Remove(@data.Id)" href="#"><i class="fa fa-trash"></i></a>
                                     </td>
 
@@ -76,7 +76,7 @@
                                 i++;
                             }
                         }
-                    </tbody>
+                    </tbody>*@
                 </table>
             </div>
         </div>
@@ -84,13 +84,14 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('#sectionTable').DataTable();
-    });
+        $(document).ready(function () {
+            $('#ClassTable').DataTable();
+        });
 
-    function Edit(Id,NameEN,NameBN) {
-        $('#sectionId').val(Id);
-        $('#NameEN').val(NameEN);
-        $('#NameBN').val(NameBN);
-    }
+        function Edit(Id, countryId, ClassName, ClassNameBn) {
+            $('#ClassId').val(Id);
+            $('#countryId').val(countryId);
+            $('#ClassName').val(ClassName);
+            $('#ClassNameBn').val(ClassNameBn);
+        }
 </script>
