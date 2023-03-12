@@ -1,5 +1,6 @@
 ﻿using First_Project.Data;
 using First_Project.Data.Master;
+using First_Project.Data.MasterData;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,8 @@ namespace First_Project.Datacontext
         public DbSet<Thana> thanas { get; set; }
         public DbSet<Occupation> occupations { get; set; }
         public DbSet<Religion> religions { get; set; }
-
+        public DbSet<ClassName> classNames { get; set; }
+        public DbSet<BookName> bookNames { get; set; }
     }
 }
 

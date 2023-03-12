@@ -18,6 +18,8 @@ namespace First_Project.Areas.Master.Controllers
         {
             this.masterService = _master;
         }
+
+        #region Country
         public async Task<IActionResult> Country()
         {
             MastersViewModel model = new MastersViewModel
@@ -33,7 +35,7 @@ namespace First_Project.Areas.Master.Controllers
         {
             var data = new Country
             {
-                Id = model.countriesId,
+                Id = model.countryId,
                 countryName = model.countryName,
                 countryNameBn = model.countryNameBn,
             };
@@ -41,7 +43,9 @@ namespace First_Project.Areas.Master.Controllers
             await masterService.SaveCountry(data);
             return RedirectToAction(nameof(Country));
         }
+        #endregion
 
+        #region Division
         public async Task<IActionResult> Division()
         {
             MastersViewModel model = new MastersViewModel
@@ -67,5 +71,61 @@ namespace First_Project.Areas.Master.Controllers
             await masterService.SaveDivision(data);
             return RedirectToAction(nameof(Division));
         }
+        #endregion
+
+        #region District
+        public async Task<IActionResult> District()
+        {
+            MastersViewModel model = new MastersViewModel
+            {
+                divisions = await masterService.GetDivision(),
+                districts = await masterService.GetDistrict(),
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> District([FromForm] MastersViewModel model)
+        {
+            var data = new District
+            {
+                Id = model.districtId,
+                divisionId = model.divisionId,
+                districtName = model.districtName,
+                districtNameBn = model.districtNameBn,
+            };
+
+            await masterService.SaveDistrict(data);
+            return RedirectToAction(nameof(District));
+        }
+        #endregion
+
+        #region
+        public async Task<IActionResult> ClassName()
+        {
+            MastersViewModel model = new MastersViewModel
+            {
+                divisions = await masterService.GetDivision(),
+                districts = await masterService.GetDistrict(),
+            };
+            return View(model);
+        }
+        #endregion
+
+
+        #region
+        public async Task<IActionResult> BookName()
+        {
+            MastersViewModel model = new MastersViewModel
+            {
+                divisions = await masterService.GetDivision(),
+                districts = await masterService.GetDistrict(),
+            };
+            return View(model);
+        }
+
+        #endregion
+
     }
 }

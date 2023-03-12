@@ -8,14 +8,19 @@ namespace First_Project.Service.Interface
 {
     public interface IMasterService
     {
-        #region
+        #region Country
         Task<int> SaveCountry(Country country);
         Task<IEnumerable<Country>> GetCountry();
         #endregion
 
-        #region
+        #region Division
         Task<int> SaveDivision(Division division);
         Task<IEnumerable<Division>> GetDivision();
+        #endregion
+
+        #region District
+        Task<int> SaveDistrict(District district);
+        Task<IEnumerable<District>> GetDistrict();
         #endregion
 
     }
