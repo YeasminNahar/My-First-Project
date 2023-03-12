@@ -18,7 +18,7 @@ namespace First_Project.Service
             _context = context;
         }
 
-        #region
+        #region Country
         public async Task<int> SaveCountry(Country country)
         {
             if (country.Id != 0)
@@ -36,7 +36,7 @@ namespace First_Project.Service
         #endregion
 
 
-        #region
+        #region Division
         public async Task<int> SaveDivision(Division division)
         {
             if (division.Id != 0)
@@ -53,6 +53,23 @@ namespace First_Project.Service
         }
         #endregion
         #region
+        public async Task<int> SaveDistrict(District district)
+        {
+            if (district.Id != 0)
+                _context.districts.Update(district);
+            else
+                _context.districts.Add(district);
+
+            await _context.SaveChangesAsync();
+            return district.Id;
+        }
+        public async Task<IEnumerable<District>> GetDistrict()
+        {
+            return await _context.districts.Include(x => x.division).AsNoTracking().ToListAsync();
+        }
+        #endregion
+
+        #region District
         public async Task<int> SaveDistrict(District district)
         {
             if (district.Id != 0)

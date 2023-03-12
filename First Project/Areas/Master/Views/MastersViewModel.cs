@@ -1,5 +1,6 @@
 ﻿using First_Project.Data;
 using First_Project.Data.Master;
+using First_Project.Data.MasterData;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,15 @@ namespace First_Project.Areas.Master.Models
 {
     public class MastersViewModel
     {
-        #region
-        public int countriesId { get; set; }
+        #region Country
+        public int countryId { get; set; }
         public string countryName { get; set; }
         public string countryNameBn { get; set; }
         public IEnumerable<Country> countries { get; set; }
         #endregion
 
-        #region
+        #region Division
         public int divisionId { get; set; }
-        public int? countryId { get; set; }
         public string divisionName { get; set; }
         public string divisionNameBn { get; set; }
         public IEnumerable<Division> divisions { get; set; }
@@ -33,6 +33,28 @@ namespace First_Project.Areas.Master.Models
         public IEnumerable<District> districts { get; set; }
         #endregion
 
+
+        #region Division
+        public int districtId { get; set; }
+        public string districtName { get; set; }
+        public string districtNameBn { get; set; }
+        public IEnumerable<District> districts { get; set; }
+        #endregion
+
+        #region ClassName
+        public int classId { get; set; }
+        public string ClassNameEn { get; set; }
+        public string ClassNameBn { get; set; }
+        public int? Order { get; set; }
+        public IEnumerable<ClassName> classNames { get; set; }
+        #endregion
+        
+        #region BookName
+        public string BookNameEn { get; set; }
+        public string BookNameBn { get; set; }
+        public string url { get; set; }
+        public IEnumerable<BookName> bookNames { get; set; }
+        #endregion
 
     }
 }
