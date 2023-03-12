@@ -20,12 +20,13 @@ namespace First_Project.Areas.Master.Models
         #endregion
 
         #region Division
+        public int countriesId { get; set; }
         public int divisionId { get; set; }
         public string divisionName { get; set; }
         public string divisionNameBn { get; set; }
         public IEnumerable<Division> divisions { get; set; }
         #endregion
-        #region
+        #region District
         public int districtId { get; set; }
         
         public string districtName { get; set; }
@@ -34,12 +35,7 @@ namespace First_Project.Areas.Master.Models
         #endregion
 
 
-        #region Division
-        public int districtId { get; set; }
-        public string districtName { get; set; }
-        public string districtNameBn { get; set; }
-        public IEnumerable<District> districts { get; set; }
-        #endregion
+        
 
         #region ClassName
         public int classId { get; set; }
