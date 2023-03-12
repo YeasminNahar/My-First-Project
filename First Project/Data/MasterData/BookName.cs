@@ -9,7 +9,7 @@ namespace First_Project.Data.MasterData
     public class BookName : Base
     {
         public int? classId { get; set; }
-        public ClassName className { get; set; }
+        public ClassInfo classInfo { get; set; }
 
         [Column(TypeName = "NVARCHAR(120)")]
         public string BookNameEn { get; set; }

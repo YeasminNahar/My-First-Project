@@ -6,6 +6,11 @@
     <RootNamespace>First_Project</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20230312170551_Add_entity_ClassName_and_BookName.cs" />
+    <Compile Remove="Migrations\20230312170551_Add_entity_ClassName_and_BookName.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="DinkToPdf" Version="1.0.8" />

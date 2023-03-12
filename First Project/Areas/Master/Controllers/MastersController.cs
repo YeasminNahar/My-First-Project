@@ -105,17 +105,6 @@ namespace First_Project.Areas.Master.Controllers
 
         }
         #endregion
-        #region ClassName
-        [HttpGet]
-        public async Task<IActionResult> ClassName()
-        {
-            MastersViewModel model = new MastersViewModel
-            {
-            };
-            return View(model);
-        }
-
-        #endregion
 
         #region BookName
         [HttpGet]
