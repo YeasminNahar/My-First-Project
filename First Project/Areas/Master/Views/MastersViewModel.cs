@@ -33,23 +33,13 @@ namespace First_Project.Areas.Master.Models
         public string districtNameBn { get; set; }
         public IEnumerable<District> districts { get; set; }
         #endregion
-
-
-        
-
-        #region ClassName
-        public int classId { get; set; }
-        public string ClassNameEn { get; set; }
-        public string ClassNameBn { get; set; }
-        public int? Order { get; set; }
-        public IEnumerable<ClassName> classNames { get; set; }
-        #endregion
         
         #region BookName
         public string BookNameEn { get; set; }
         public string BookNameBn { get; set; }
         public string url { get; set; }
         public IEnumerable<BookName> bookNames { get; set; }
+        public IEnumerable<ClassInfo> classInfos { get; set; }
         #endregion
 
     }

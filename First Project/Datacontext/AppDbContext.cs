@@ -26,7 +26,6 @@ namespace First_Project.Datacontext
         public DbSet<Thana> thanas { get; set; }
         public DbSet<Occupation> occupations { get; set; }
         public DbSet<Religion> religions { get; set; }
-        public DbSet<ClassName> classNames { get; set; }
         public DbSet<BookName> bookNames { get; set; }
     }
 }

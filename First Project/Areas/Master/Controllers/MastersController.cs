@@ -13,10 +13,12 @@ namespace First_Project.Areas.Master.Controllers
     public class MastersController : Controller
     {
         private readonly IMasterService masterService;
+        private readonly IStudentService studentService;
 
-        public MastersController(IMasterService _master)
+        public MastersController(IMasterService _master, IStudentService _student)
         {
             this.masterService = _master;
+            this.studentService = _student;
         }
 
         #region Country
@@ -112,6 +114,7 @@ namespace First_Project.Areas.Master.Controllers
         {
             MastersViewModel model = new MastersViewModel
             {
+                classInfos = await studentService.GetAllClasses(),
             };
             return View(model);
         }
