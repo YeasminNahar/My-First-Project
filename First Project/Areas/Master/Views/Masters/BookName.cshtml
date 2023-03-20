@@ -27,6 +27,31 @@
         .form-group {
             margin-bottom: 6px !important;
         }
+
+        label.cameraButton {
+            display: inline-block;
+            /*margin: 1em 0;*/
+            /* Styles to make it look like a button */
+            padding: 0.5em;
+            border: 2px solid #666;
+            border-color: #EEE #CCC #CCC #EEE;
+            background-color: #DDD;
+            width: 35%
+        }
+
+            /* Look like a clicked/depressed button */
+            label.cameraButton:active {
+                border-color: #CCC #EEE #EEE #CCC;
+            }
+
+            /* This is the part that actually hides the 'Choose file' text box for camera inputs */
+            label.cameraButton input[accept*="camera"] {
+                display: none;
+            }
+
+        td {
+            text-align: center;
+        }
     </style>
 }
 <div class="col-12">
@@ -93,6 +118,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-6">
+                        <div class="form-group row text-center">
+                            <div class="container">
+                                <label class="cameraButton">
+                                    Take a picture
+                                    <img class="blah" style="width:170px; height:170px; margin-right:10%;  margin-top:0%; position:relative" onchange="readURL(this);" alt="your image" src="~/Profile/student.png"><br />
+                                    <input type='hidden' style="background-color:aliceblue" id="blah">
+                                    <input type='file' accept="image/*;capture=camera" value="" style="background-color:aliceblue" id="imgfile" name="imgUrl" onchange="readURL(this);" title="Photo Upload" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group row">
@@ -107,6 +144,7 @@
                             <thead>
                                 <tr style="background-color:#E9ECEF">
                                     <th style="text-align:center">SL No</th>
+                                    <th style="text-align:center">Image</th>
                                     <th style="text-align:center">Subject</th>
                                     <th style="text-align:center">TotalMarks</th>
                                     <th style="text-align:center">Grade</th>
@@ -215,6 +253,9 @@
             var Subject = $('#Subject').val();
             var TotalMarks = $('#TotalMarks').val();
             var Grade = $('#Grade').val();
+            var Image = $('#imgfile').val();
+            var blah = $('#blah').val();
+            var Images = `<img class="blaha" style="width:60px; height:60px;  onchange="readURL(this);" alt="your image" src="${blah}">`;
             if (Subject == "") {
                 swal({
                     title: 'Warning', text: 'Please Enter Subject Name.!!!', type: 'warning'
@@ -245,13 +286,14 @@
             }
             var RowCount = $("#childTbl tbody>tr").length;
             var index = RowCount + 1;
-            var row = `<tr id="Id_${index}">
-                                <td style="text-align:center"><input type="hidden" value="0" name="childId">${index}</td>
-                                <td style="text-align:center"><input type="hidden" style="text-align:center" class="rowId" value="${Subject}" name="Subject">${Subject}</td>
-                                <td style="text-align:center"><input type="text" class="" style="text-align:center" value="${TotalMarks}" name="TotalMarks"></td>
-                                <td style="text-align:center"><input type="text" class="" style="text-align:center" value="${Grade}" name="Grade"></td>
-                                <td style="text-align:center"><a href="javascript:void(0)" onclick="RemoveRow(${index})">X</a></td>
-                            </tr>`;
+            var row = `<tr style="text-align:center" id="Id_${index}">
+                                    <td style="text-align:center"><input type="hidden" value="0" name="childId">${index}</td>
+                                    <td style="text-align:center"><input type="hidden" class="" style="text-align:center" value="${Image}" name="imgUrl">${Images}</td>
+                                    <td style="text-align:center"><input type="hidden" style="text-align:center" class="rowId" value="${Subject}" name="Subject">${Subject}</td>
+                                    <td style="text-align:center"><input type="text" class="" style="text-align:center" value="${TotalMarks}" name="TotalMarks"></td>
+                                    <td style="text-align:center"><input type="text" class="" style="text-align:center" value="${Grade}" name="Grade"></td>
+                                    <td style="text-align:center"><a href="javascript:void(0)" onclick="RemoveRow(${index})">X</a></td>
+                                </tr>`;
 
             $('#childTbl tbody').append(row);
             $('#Subject').val("");
@@ -269,5 +311,19 @@
                 $(id).remove();
             })
         }
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.blah').attr('src', e.target.result);
+                    $('#blah').attr('value', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
     </script>
 }
